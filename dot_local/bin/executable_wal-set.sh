@@ -51,6 +51,9 @@ echo ""
 # -e: skip reloading gtk theme
 wal -i "$WALLPAPER" -n -s -t -e
 
+# Update theme state for toggle script
+echo "dynamic" > "$HOME/.cache/current_theme_mode"
+
 echo "Applying generated colors..."
 
 # ============================================

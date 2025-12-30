@@ -28,6 +28,7 @@ window#waybar {
 /* Pill modules base style */
 #workspaces,
 #clock,
+#custom-theme,
 #cpu,
 #memory,
 #network,
@@ -69,6 +70,14 @@ window#waybar {
 #workspaces button.urgent {
     background: @critical;
     color: @bg-primary;
+}
+
+/* Theme toggle button */
+#custom-theme {
+    color: @accent-1;
+    font-size: 16px;
+    padding-left: 12px;
+    padding-right: 12px;
 }
 
 /* Clock - center pill, slightly larger */

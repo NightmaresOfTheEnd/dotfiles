@@ -10,7 +10,7 @@
     // Floating islands layout
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "network", "battery", "tray"],
+    "modules-right": ["custom/theme", "cpu", "memory", "network", "battery", "tray"],
 
     // Module configurations
     "hyprland/workspaces": {
@@ -34,6 +34,12 @@
         "persistent-workspaces": {
             "*": 5
         }
+    },
+
+    "custom/theme": {
+        "format": "🎨",
+        "on-click": "~/.local/bin/toggle-theme.sh",
+        "tooltip": false
     },
 
     "clock": {

@@ -4,18 +4,27 @@
 # If no cached colors exist, generates from X_* wallpaper
 
 WALLPAPER_DIR="$HOME/Pictures/wallpapers"
+STATE_FILE="$HOME/.cache/current_theme_mode"
 
 # Find X_* wallpaper
 WALLPAPER=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f -name "X_*" 2>/dev/null | head -n 1)
+CURRENT_MODE="dynamic"
 
-# If no cached colors, generate from X_* wallpaper
+if [[ -f "$STATE_FILE" ]]; then
+    CURRENT_MODE=$(cat "$STATE_FILE")
+fi
+
+# If no cached colors, generate based on mode
 if [[ ! -f ~/.cache/wal/colors.sh ]]; then
-    if [[ -n "$WALLPAPER" ]] && command -v wal &> /dev/null; then
+    if [[ "$CURRENT_MODE" == "default" ]] && command -v wal &> /dev/null; then
+         wal --theme cyberpunk -n -s -t -e
+    elif [[ -n "$WALLPAPER" ]] && command -v wal &> /dev/null; then
         wal -i "$WALLPAPER" -n -s -t -e
     fi
 fi
 
-# Update hyprpaper.conf with X_* wallpaper
+# Update hyprpaper.conf with X_* wallpaper (always used as base wallpaper)
+if [[ -n "$WALLPAPER" ]]; then
 if [[ -n "$WALLPAPER" ]]; then
     echo "preload = $WALLPAPER" > ~/.config/hypr/hyprpaper.conf
     echo "wallpaper = ,$WALLPAPER" >> ~/.config/hypr/hyprpaper.conf
