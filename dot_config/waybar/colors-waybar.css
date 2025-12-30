@@ -1,0 +1,11 @@
+/* Nord-Night fallback colors for Waybar */
+/* This file will be overwritten by pywal */
+
+@define-color bg-primary rgba(30, 34, 42, 0.75);
+@define-color bg-secondary rgba(46, 52, 64, 0.85);
+@define-color fg-primary #d8dee9;
+@define-color fg-secondary #4c566a;
+@define-color accent-1 #5e81ac;
+@define-color accent-2 #88c0d0;
+@define-color warning #ebcb8b;
+@define-color critical #bf616a;

@@ -1,0 +1,11 @@
+/* Pywal generated colors for Waybar */
+/* Template: colors-waybar.css */
+
+@define-color bg-primary rgba({background.rgb}, 0.75);
+@define-color bg-secondary rgba({color0.rgb}, 0.85);
+@define-color fg-primary {foreground};
+@define-color fg-secondary {color8};
+@define-color accent-1 {color4};
+@define-color accent-2 {color6};
+@define-color warning {color3};
+@define-color critical {color1};

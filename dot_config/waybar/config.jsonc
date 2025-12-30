@@ -1,0 +1,98 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 40,
+    "spacing": 8,
+    "margin-top": 8,
+    "margin-left": 12,
+    "margin-right": 12,
+
+    // Floating islands layout
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["cpu", "memory", "network", "battery", "tray"],
+
+    // Module configurations
+    "hyprland/workspaces": {
+        "disable-scroll": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "I",
+            "2": "II",
+            "3": "III",
+            "4": "IV",
+            "5": "V",
+            "6": "VI",
+            "7": "VII",
+            "8": "VIII",
+            "9": "IX",
+            "10": "X",
+            "urgent": "!",
+            "default": "."
+        },
+        "persistent-workspaces": {
+            "*": 5
+        }
+    },
+
+    "clock": {
+        "format": "{:%H:%M}",
+        "format-alt": "{:%A, %B %d, %Y}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "format": {
+                "months": "<span color='#8fbcbb'><b>{}</b></span>",
+                "weeks": "<span color='#5e81ac'><b>W{}</b></span>",
+                "weekdays": "<span color='#88c0d0'><b>{}</b></span>",
+                "today": "<span color='#bf616a'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+
+    "cpu": {
+        "format": "CPU {usage}%",
+        "interval": 2,
+        "tooltip": true,
+        "states": {
+            "high": 80
+        }
+    },
+
+    "memory": {
+        "format": "RAM {percentage}%",
+        "interval": 5,
+        "tooltip-format": "{used:0.1f}G / {total:0.1f}G",
+        "states": {
+            "high": 80
+        }
+    },
+
+    "network": {
+        "format-wifi": "WiFi {signalStrength}%",
+        "format-ethernet": "ETH",
+        "format-disconnected": "OFF",
+        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "BAT {capacity}%",
+        "format-charging": "CHG {capacity}%",
+        "format-plugged": "PWR {capacity}%",
+        "format-full": "FULL",
+        "tooltip-format": "{timeTo}"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
+    }
+}

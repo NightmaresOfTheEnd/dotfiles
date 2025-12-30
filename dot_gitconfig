@@ -1,0 +1,25 @@
+[user]
+	name = NightmaresOfTheEnd
+	email = NightmaresOfTheEnd@users.noreply.github.com
+
+[init]
+	defaultBranch = main
+
+[core]
+	editor = nvim
+	autocrlf = input
+
+[pull]
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	ci = commit
+	lg = log --oneline --graph --decorate
+	last = log -1 HEAD
+	unstage = reset HEAD --
