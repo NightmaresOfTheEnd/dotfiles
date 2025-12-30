@@ -1,0 +1,59 @@
+/* wlogout - Stealth Cyberpunk Theme */
+/* Nord-Night fallback (pywal will overwrite) */
+
+* {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+}
+
+window {
+    background-color: rgba(30, 34, 42, 0.85);
+}
+
+button {
+    color: #d8dee9;
+    background-color: rgba(46, 52, 64, 0.6);
+    border: 2px solid #4c566a;
+    border-radius: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 48px;
+    margin: 8px;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: rgba(94, 129, 172, 0.4);
+    border-color: #5e81ac;
+}
+
+button:focus {
+    background-color: rgba(94, 129, 172, 0.6);
+    border-color: #88c0d0;
+    outline: none;
+}
+
+/* Button specific colors on hover */
+#lock:hover {
+    border-color: #88c0d0;
+}
+
+#logout:hover {
+    border-color: #ebcb8b;
+}
+
+#suspend:hover {
+    border-color: #a3be8c;
+}
+
+#hibernate:hover {
+    border-color: #b48ead;
+}
+
+#reboot:hover {
+    border-color: #ebcb8b;
+}
+
+#shutdown:hover {
+    border-color: #bf616a;
+}

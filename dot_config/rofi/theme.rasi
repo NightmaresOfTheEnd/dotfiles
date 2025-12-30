@@ -1,0 +1,80 @@
+/* Rofi Theme - Dark Glass */
+
+* {
+    font: "JetBrains Mono 12";
+
+    /* Use colors from pywal-generated colors.rasi */
+    background-color: transparent;
+    text-color: @foreground;
+
+    margin: 0;
+    padding: 0;
+    spacing: 0;
+}
+
+window {
+    width: 500px;
+    background-color: @background;
+    border: 2px solid;
+    border-color: @color8;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+mainbox {
+    children: [inputbar, listview];
+    spacing: 16px;
+}
+
+inputbar {
+    children: [prompt, entry];
+    background-color: @color0;
+    border-radius: 8px;
+    padding: 12px 16px;
+}
+
+prompt {
+    text-color: @color4;
+    margin: 0 8px 0 0;
+}
+
+entry {
+    placeholder: "Search...";
+    placeholder-color: @color8;
+}
+
+listview {
+    lines: 8;
+    columns: 1;
+    fixed-height: false;
+    scrollbar: false;
+}
+
+element {
+    padding: 10px 16px;
+    border-radius: 8px;
+    spacing: 12px;
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+}
+
+element selected.normal {
+    background-color: @color4;
+    text-color: @background;
+}
+
+element-icon {
+    size: 24px;
+    vertical-align: 0.5;
+}
+
+element-text {
+    vertical-align: 0.5;
+}
+
+element-text selected {
+    text-color: @background;
+}

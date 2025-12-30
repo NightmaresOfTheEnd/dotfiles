@@ -1,0 +1,58 @@
+/* wlogout - Pywal Generated Theme */
+
+* {{
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+}}
+
+window {{
+    background-color: rgba({background.rgb}, 0.85);
+}}
+
+button {{
+    color: {foreground};
+    background-color: rgba({color0.rgb}, 0.6);
+    border: 2px solid {color8};
+    border-radius: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 48px;
+    margin: 8px;
+    transition: all 0.2s ease;
+}}
+
+button:hover {{
+    background-color: rgba({color4.rgb}, 0.4);
+    border-color: {color4};
+}}
+
+button:focus {{
+    background-color: rgba({color4.rgb}, 0.6);
+    border-color: {color6};
+    outline: none;
+}}
+
+/* Button specific colors on hover */
+#lock:hover {{
+    border-color: {color6};
+}}
+
+#logout:hover {{
+    border-color: {color3};
+}}
+
+#suspend:hover {{
+    border-color: {color2};
+}}
+
+#hibernate:hover {{
+    border-color: {color5};
+}}
+
+#reboot:hover {{
+    border-color: {color3};
+}}
+
+#shutdown:hover {{
+    border-color: {color1};
+}}
