@@ -8,36 +8,38 @@
 
 set -euo pipefail
 
-WALLPAPER_DIR="$HOME/Pictures/wallpapers"
+WALLPAPER_DIR="${HOME}/Pictures/wallpapers"
+CONFIG_DIR="${HOME}/.config"
+CACHE_DIR="${HOME}/.cache/wal"
 
 # If argument provided, use it; otherwise find X_* wallpaper
 if [[ -n "${1:-}" ]]; then
     WALLPAPER="$1"
 else
     # Find wallpaper with X_* naming pattern
-    WALLPAPER=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f -name "X_*" 2>/dev/null | head -n 1)
+    WALLPAPER=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f -name "X_*" 2>/dev/null | head -n 1 || true)
 
     if [[ -z "$WALLPAPER" ]]; then
-        echo "Error: No wallpaper found matching 'X_*' pattern in $WALLPAPER_DIR"
-        echo "Usage: wal-set.sh [/path/to/wallpaper.jpg]"
-        echo ""
-        echo "Either:"
-        echo "  1. Rename your preferred wallpaper to start with 'X_' (e.g., X_dark_forest.jpg)"
-        echo "  2. Provide a wallpaper path as argument"
+        echo "Error: No wallpaper found matching 'X_*' pattern in $WALLPAPER_DIR" >&2
+        echo "Usage: wal-set.sh [/path/to/wallpaper.jpg]" >&2
+        echo "" >&2
+        echo "Either:" >&2
+        echo "  1. Rename your preferred wallpaper to start with 'X_' (e.g., X_dark_forest.jpg)" >&2
+        echo "  2. Provide a wallpaper path as argument" >&2
         exit 1
     fi
 fi
 
 # Check if wallpaper exists
 if [[ ! -f "$WALLPAPER" ]]; then
-    echo "Error: Wallpaper not found: $WALLPAPER"
-    echo "Usage: wal-set.sh [/path/to/wallpaper.jpg]"
+    echo "Error: Wallpaper not found: $WALLPAPER" >&2
+    echo "Usage: wal-set.sh [/path/to/wallpaper.jpg]" >&2
     exit 1
 fi
 
 # Check if pywal is installed
 if ! command -v wal &> /dev/null; then
-    echo "Error: pywal not installed. Please install python-pywal."
+    echo "Error: pywal not installed. Please install python-pywal." >&2
     exit 1
 fi
 
@@ -61,52 +63,52 @@ echo "Applying generated colors..."
 # ============================================
 
 # Foot terminal
-if [[ -f ~/.cache/wal/colors-foot.ini ]]; then
-    cp ~/.cache/wal/colors-foot.ini ~/.config/foot/colors.ini
+if [[ -f "${CACHE_DIR}/colors-foot.ini" ]]; then
+    cp "${CACHE_DIR}/colors-foot.ini" "${CONFIG_DIR}/foot/colors.ini"
     echo "  [ok] foot"
 fi
 
 # Waybar
-if [[ -f ~/.cache/wal/colors-waybar.css ]]; then
-    cp ~/.cache/wal/colors-waybar.css ~/.config/waybar/colors-waybar.css
+if [[ -f "${CACHE_DIR}/colors-waybar.css" ]]; then
+    cp "${CACHE_DIR}/colors-waybar.css" "${CONFIG_DIR}/waybar/colors-waybar.css"
     echo "  [ok] waybar"
 fi
 
 # Hyprland colors (optional sourcing)
-if [[ -f ~/.cache/wal/colors-hyprland.conf ]]; then
-    cp ~/.cache/wal/colors-hyprland.conf ~/.config/hypr/colors.conf
+if [[ -f "${CACHE_DIR}/colors-hyprland.conf" ]]; then
+    cp "${CACHE_DIR}/colors-hyprland.conf" "${CONFIG_DIR}/hypr/colors.conf"
     echo "  [ok] hyprland colors"
 fi
 
 # Rofi
-if [[ -f ~/.cache/wal/colors-rofi.rasi ]]; then
-    cp ~/.cache/wal/colors-rofi.rasi ~/.config/rofi/colors.rasi
+if [[ -f "${CACHE_DIR}/colors-rofi.rasi" ]]; then
+    cp "${CACHE_DIR}/colors-rofi.rasi" "${CONFIG_DIR}/rofi/colors.rasi"
     echo "  [ok] rofi"
 fi
 
 # Mako
-if [[ -f ~/.cache/wal/colors-mako.conf ]]; then
-    cp ~/.cache/wal/colors-mako.conf ~/.config/mako/config
+if [[ -f "${CACHE_DIR}/colors-mako.conf" ]]; then
+    cp "${CACHE_DIR}/colors-mako.conf" "${CONFIG_DIR}/mako/config"
     echo "  [ok] mako"
 fi
 
 # Hyprlock
-if [[ -f ~/.cache/wal/colors-hyprlock.conf ]]; then
-    cp ~/.cache/wal/colors-hyprlock.conf ~/.config/hypr/hyprlock.conf
+if [[ -f "${CACHE_DIR}/colors-hyprlock.conf" ]]; then
+    cp "${CACHE_DIR}/colors-hyprlock.conf" "${CONFIG_DIR}/hypr/hyprlock.conf"
     echo "  [ok] hyprlock"
 fi
 
 # wlogout
-if [[ -f ~/.cache/wal/colors-wlogout.css ]]; then
-    cp ~/.cache/wal/colors-wlogout.css ~/.config/wlogout/style.css
+if [[ -f "${CACHE_DIR}/colors-wlogout.css" ]]; then
+    cp "${CACHE_DIR}/colors-wlogout.css" "${CONFIG_DIR}/wlogout/style.css"
     echo "  [ok] wlogout"
 fi
 
 # ============================================
 # Update hyprpaper configuration
 # ============================================
-echo "preload = $WALLPAPER" > ~/.config/hypr/hyprpaper.conf
-echo "wallpaper = ,$WALLPAPER" >> ~/.config/hypr/hyprpaper.conf
+echo "preload = $WALLPAPER" > "${CONFIG_DIR}/hypr/hyprpaper.conf"
+echo "wallpaper = ,$WALLPAPER" >> "${CONFIG_DIR}/hypr/hyprpaper.conf"
 echo "  [ok] hyprpaper config"
 
 # ============================================

@@ -3,11 +3,15 @@
 # This script restores cached colors without regenerating them
 # If no cached colors exist, generates from X_* wallpaper
 
-WALLPAPER_DIR="$HOME/Pictures/wallpapers"
-STATE_FILE="$HOME/.cache/current_theme_mode"
+set -euo pipefail
+
+WALLPAPER_DIR="${HOME}/Pictures/wallpapers"
+STATE_FILE="${HOME}/.cache/current_theme_mode"
+CONFIG_DIR="${HOME}/.config"
+CACHE_DIR="${HOME}/.cache/wal"
 
 # Find X_* wallpaper
-WALLPAPER=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f -name "X_*" 2>/dev/null | head -n 1)
+WALLPAPER=$(find "$WALLPAPER_DIR" -maxdepth 1 -type f -name "X_*" 2>/dev/null | head -n 1 || true)
 CURRENT_MODE="dynamic"
 
 if [[ -f "$STATE_FILE" ]]; then
@@ -15,9 +19,9 @@ if [[ -f "$STATE_FILE" ]]; then
 fi
 
 # If no cached colors, generate based on mode
-if [[ ! -f ~/.cache/wal/colors.sh ]]; then
+if [[ ! -f "${CACHE_DIR}/colors.sh" ]]; then
     if [[ "$CURRENT_MODE" == "default" ]] && command -v wal &> /dev/null; then
-         wal --theme cyberpunk -n -s -t -e
+        wal --theme cyberpunk -n -s -t -e
     elif [[ -n "$WALLPAPER" ]] && command -v wal &> /dev/null; then
         wal -i "$WALLPAPER" -n -s -t -e
     fi
@@ -25,14 +29,14 @@ fi
 
 # Update hyprpaper.conf with X_* wallpaper (always used as base wallpaper)
 if [[ -n "$WALLPAPER" ]]; then
-if [[ -n "$WALLPAPER" ]]; then
-    echo "preload = $WALLPAPER" > ~/.config/hypr/hyprpaper.conf
-    echo "wallpaper = ,$WALLPAPER" >> ~/.config/hypr/hyprpaper.conf
+    echo "preload = $WALLPAPER" > "${CONFIG_DIR}/hypr/hyprpaper.conf"
+    echo "wallpaper = ,$WALLPAPER" >> "${CONFIG_DIR}/hypr/hyprpaper.conf"
 fi
 
 # Source cached colors if they exist (for shell variables)
-if [[ -f ~/.cache/wal/colors.sh ]]; then
-    source ~/.cache/wal/colors.sh
+if [[ -f "${CACHE_DIR}/colors.sh" ]]; then
+    # shellcheck source=/dev/null
+    source "${CACHE_DIR}/colors.sh"
 fi
 
 # ============================================
@@ -40,39 +44,38 @@ fi
 # ============================================
 
 # Foot terminal
-if [[ -f ~/.cache/wal/colors-foot.ini ]]; then
-    cp ~/.cache/wal/colors-foot.ini ~/.config/foot/colors.ini
+if [[ -f "${CACHE_DIR}/colors-foot.ini" ]]; then
+    cp "${CACHE_DIR}/colors-foot.ini" "${CONFIG_DIR}/foot/colors.ini"
 fi
 
 # Waybar
-if [[ -f ~/.cache/wal/colors-waybar.css ]]; then
-    cp ~/.cache/wal/colors-waybar.css ~/.config/waybar/colors-waybar.css
+if [[ -f "${CACHE_DIR}/colors-waybar.css" ]]; then
+    cp "${CACHE_DIR}/colors-waybar.css" "${CONFIG_DIR}/waybar/colors-waybar.css"
 fi
 
 # Hyprland colors
-if [[ -f ~/.cache/wal/colors-hyprland.conf ]]; then
-    cp ~/.cache/wal/colors-hyprland.conf ~/.config/hypr/colors.conf
+if [[ -f "${CACHE_DIR}/colors-hyprland.conf" ]]; then
+    cp "${CACHE_DIR}/colors-hyprland.conf" "${CONFIG_DIR}/hypr/colors.conf"
 fi
 
 # Rofi
-if [[ -f ~/.cache/wal/colors-rofi.rasi ]]; then
-    cp ~/.cache/wal/colors-rofi.rasi ~/.config/rofi/colors.rasi
+if [[ -f "${CACHE_DIR}/colors-rofi.rasi" ]]; then
+    cp "${CACHE_DIR}/colors-rofi.rasi" "${CONFIG_DIR}/rofi/colors.rasi"
 fi
 
 # Mako
-if [[ -f ~/.cache/wal/colors-mako.conf ]]; then
-    cp ~/.cache/wal/colors-mako.conf ~/.config/mako/config
+if [[ -f "${CACHE_DIR}/colors-mako.conf" ]]; then
+    cp "${CACHE_DIR}/colors-mako.conf" "${CONFIG_DIR}/mako/config"
 fi
 
 # Hyprlock
-if [[ -f ~/.cache/wal/colors-hyprlock.conf ]]; then
-    cp ~/.cache/wal/colors-hyprlock.conf ~/.config/hypr/hyprlock.conf
+if [[ -f "${CACHE_DIR}/colors-hyprlock.conf" ]]; then
+    cp "${CACHE_DIR}/colors-hyprlock.conf" "${CONFIG_DIR}/hypr/hyprlock.conf"
 fi
 
 # wlogout
-if [[ -f ~/.cache/wal/colors-wlogout.css ]]; then
-    cp ~/.cache/wal/colors-wlogout.css ~/.config/wlogout/style.css
+if [[ -f "${CACHE_DIR}/colors-wlogout.css" ]]; then
+    cp "${CACHE_DIR}/colors-wlogout.css" "${CONFIG_DIR}/wlogout/style.css"
 fi
 
-# Exit cleanly even if files don't exist
 exit 0
